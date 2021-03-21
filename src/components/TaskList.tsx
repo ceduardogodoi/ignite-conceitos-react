@@ -24,7 +24,8 @@ export function TaskList() {
         isComplete: false,
       };
 
-      setTasks([...tasks, newTask]);
+      setTasks(oldState => [...oldState, newTask]);
+      setNewTaskTitle('');
     }
   }
 
@@ -42,13 +43,9 @@ export function TaskList() {
   }
 
   function handleRemoveTask(id: number) {
-    const index = tasks.findIndex((task) => task.id === id);
+    const filteredTasks = tasks.filter((task) => task.id !== id);
 
-    if (index > -1) {
-      tasks.splice(index, 1);
-
-      setTasks([...tasks]);
-    }
+    setTasks(filteredTasks);
   }
 
   return (
